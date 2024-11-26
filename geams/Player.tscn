@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://gfha0fm4e66a"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_ju6dt"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_sv8cf"]
+height = 2.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y8jro"]
+albedo_color = Color(0.290196, 0.290196, 0.713726, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ue4pl"]
+
+[node name="Player" type="Node3D"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3988, 0)
+script = ExtResource("1_ju6dt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+mesh = SubResource("CapsuleMesh_sv8cf")
+surface_material_override/0 = SubResource("StandardMaterial3D_y8jro")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_ue4pl")
+
+[node name="NECK" type="Node3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.3988, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/NECK"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0.177244)
+
+[node name="Raycasts" type="Node3D" parent="CharacterBody3D/NECK"]
+
+[node name="WallRunRight" type="RayCast3D" parent="CharacterBody3D/NECK/Raycasts"]
+transform = Transform3D(-3.78552e-08, -0.866025, 0.5, 1, -4.37114e-08, 0, 2.18557e-08, 0.5, 0.866025, 0.149572, 1.62455, 0.13472)
+
+[node name="WallRunLeft" type="RayCast3D" parent="CharacterBody3D/NECK/Raycasts"]
+transform = Transform3D(3.78552e-08, 0.866025, 0.5, 1, -4.37114e-08, 0, 2.18557e-08, 0.5, -0.866025, -0.146711, 1.62942, 0.13472)
+
+[node name="DashRayCast" type="RayCast3D" parent="CharacterBody3D/NECK/Raycasts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51058, -3.1621)
